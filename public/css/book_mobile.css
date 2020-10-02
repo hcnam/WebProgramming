@@ -1,0 +1,89 @@
+@charset "utf-8";
+
+body {
+    font-size: 14px;
+}
+
+.header {
+    width: 100%;
+    background:  rgb(255, 255, 136);
+    align-content: center;
+}
+
+.content1 {
+    width: 99%;
+    padding: 0 0;
+    margin: 0 0;
+    float: center;
+    background-color: #fff;
+}
+.content1 img {
+    align-content: center;
+    width : 180px;
+}
+.content1 table {
+    align-content: center;
+}
+.content2 {
+    width: 99%;
+    margin-top: 1%;
+    padding: 0 0;
+    float: center;
+    height:280px;
+}
+
+.line {
+    width: 99%;
+}
+
+.rate {
+    width: 99%;
+}
+
+.offer {
+    margin-top: 1%;
+	padding:0, 0;
+    float: left;
+    width: 99%;
+}
+
+.line {
+    margin-top: 1%;
+	padding:0, 0;
+    float: left;
+    width: 99%;
+    height: 450px;
+}
+
+.line canvas{
+    align-content: center;
+    width: 99%;
+    height: 380px;
+}
+
+.bar{
+    margin-top: 1%;
+	padding:0, 0;
+    float: left;
+    width: 99%;
+    height: 450px;
+}
+
+.radar {
+    width: 99%;
+    float: center;
+}
+
+.wordCloud{
+    width: 99%;
+    float: center;
+}
+
+.comment {
+    background-color: #ffffff;
+}
+
+.mainFooter{
+    margin-top: 1%;
+    width:100%;		
+}

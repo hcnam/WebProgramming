@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>아무책 대잔치</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+        <script src="/script/script_menu.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css"  href="/css/book_web.css"/>
+        <link rel="stylesheet" media="(max-width: 960px)" type="text/css" href="/css/book_mobile.css"/>
+        <link rel="stylesheet" type="text/css"  href="/css/nav.css"/>
+    </head>
+    <body class="body">
+        <header class="mainHeader">
+            <img id="logo" src="/images/logo.jpg"/>
+            
+        </header>
+        <!-- navigator -->
+        <script src="/script/script_menu.js" type="text/javascript"></script>
+        <div class="topnav" id="myTopnav">
+                <a href='#' class="active">MENU</a>
+                <a href='/'>메인</a>
+                <a href='/rank/1'>아무책대잔치</a>
+                <a href='/rank/2'>교보문고</a>
+                <a href='/rank/3'>알라딘</a>
+                <a href='/rank/4'>영풍문고</a>
+                <a href='/rank/5'>반디앤루니스</a>
+                <a href='/rank/6'>YES24</a> 
+                <a href="javascript:void(0);" class="icon" onclick="navFunc()">
+                    <img src="/images/nav-icon.png">
+                </a>
+        </div>
+        <section>
+        <!-- book information-->
+            <div class='content1'>
+            <h2>&nbsp; <%=bookData.name%></h2>
+            <div>
+                <img src="<%=bookData.img_link%>">    
+                <ul>
+                    <li><span>글쓴이</span><%=bookData.author%></li>
+
+                    <li><span>옮긴이</span><%=bookData.translator%></li>
+
+                    <li><span>출판사</span><%=bookData.publisher%></li>
+
+                    <li><span>출간일</span><%=bookData.pub_date%></li>
+
+                    <li><span>ISBN</span><%=bookData.ISBN%></li>
+
+                    <li><span>정가</span><%=bookData.Org_Price%>원</li>
+                </ul>
+            </div>
+                
+            </div>
+            <!-- book price for each store-->
+            <div class='content2'>
+            <h4 align='center'>가격정보</h4>
+            <table>
+                <% for (var list of price){ %>
+                <tr>
+                    <td width='200px'><a href="<%=list.link%>"><%=list.name %></a></td>
+                    <td><%=list.price %>원</td>
+                </tr>
+                <% } %>
+
+            </table>
+            </div>
+            <div class="line">
+                <h4 align='center'>주간 베스트셀러 정보</h4>
+                <canvas id="myLineChart"></canvas>
+                <script>
+                    var kyobo = new Array(<%= ranks.rank.kyo%>);
+                    var aladin = new Array(<%= ranks.rank.ala%>);
+                    var youngpung = new Array(<%= ranks.rank.yp%>);
+                    var yes24 = new Array(<%= ranks.rank.yes24%>);
+                    var bandi = new Array(<%= ranks.rank.ban%>);
+                    var weekdata = new Array(<%=ranks.week%>);
+
+                    var ctx = document.getElementById("myLineChart");
+                    var myLineChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ["1주차","2주차","3주차","4주차","현재"],
+
+                            datasets: [{
+                                    label: "교보문고",
+                                    fill: false,
+                                    borderColor: "rgba(220,0,0,1)",
+                                    backgroundColor: "rgba(220,50,50,1)",
+                                    data: kyobo
+                                },
+                                {
+                                    label: "알라딘",
+                                    fill: false,
+                                    borderColor: "rgba(128,255,0,1)",
+                                    backgroundColor: "rgba(128,250,0,1)",
+                                    data: aladin
+                                }
+                                ,
+                                {
+                                    label: "영풍문고",
+                                    fill: false,
+                                    borderColor: "rgba(128,128,255,1)",
+                                    backgroundColor: "rgba(128,128,255,1)",
+                                    data: youngpung
+                                }
+                                ,
+                                {
+                                    label: "YES24",
+                                    fill: false,
+                                    borderColor: "rgba(240,128,0,1)",
+                                    backgroundColor: "rgba(240,128,20,1)",
+                                    data: yes24
+                                }
+                                ,
+                                {
+                                    label: "반디앤루니스",
+                                    fill: false,
+                                    borderColor: "rgba(255,51,153,1)",
+                                    backgroundColor: "rgba(255,51,153,1)",
+                                    data: bandi
+                                }
+
+                            ]},
+                            options : {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true,
+                                            suggestedMin: 1,
+                                            suggestedMax: 16,
+                                            stepSize: 1,
+                                            reverse: true,
+                                        }
+                                    }]
+                                },
+                                elements: {
+                                    line: {
+                                        tension: 0, // disables bezier curves
+                                    }
+                                },
+                                responsive: true,
+                                maintainAspectRatio: false
+                            }
+                        })
+                </script>
+                
+            </div>
+            <div class="rate">
+                <h4 align='center'>평점 정보</h4>
+                <canvas id="myBarChart"></canvas>
+                <script>
+                    var point5 = <%=rates[0].cnt%>;
+                    var point4 = <%=rates[1].cnt%>;
+                    var point3 = <%=rates[2].cnt%>;
+                    var point2 = <%=rates[3].cnt%>;
+                    var point1 = <%=rates[4].cnt%>;
+                    var ctx = document.getElementById("myBarChart");
+                    var myBarChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+                        data: {
+                            labels : ["5점","4점","3점","2점","1점"],
+                            datasets: [{
+                                label: "명",
+                                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                                data: [point5,point4,point3,point2,point1]
+                            }]
+                        },
+                        options: {
+                            legend: { 
+                                display: false 
+                            },
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                    });
+                </script>
+            </div>
+
+
+
+            <div class='radar'>
+                <h4 align='center'>이 책의 특징</h4>
+                <canvas id="myChart"></canvas>
+                <script>
+                    var fun = <%= status.fun %>;  
+                    var age = <%= status.age %>;
+                    var practical = <%= status.practical %>;  
+                    var dev = <%= status.dev %>;  
+                    var expert = <%= status.expert %>;  
+                    var ctx = document.getElementById("myChart");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: ["나이", "재미", "실용성", "자기계발", "전문성"],
+                            datasets: [{
+                                data: [age, fun, practical, dev, expert],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255,99,132,1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            legend: true,
+                                
+                            scale: {
+                                ticks: {
+                                    beginAtZero: true,
+                                    suggestedMin: 1,
+                                    suggestedMax: 5,
+                                    stepSize: 1,
+                                    display : false
+                                },
+                                gridLines:{
+                                    display: true,
+                                },
+                                angleLines: {
+                                    display: true,
+                                },
+                            },
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                    });
+                </script>
+            </div>
+            <div class='wordCloud'>
+                <h4 align='center'>이책의 키워드</h4>
+                <img src="/images/word.png">
+            </div>
+            <div class="offer">
+                <h4 align='center'>이책과 함께 들으면 좋은 음악</h4>
+                <div class='wrap'>
+                    <iframe src="https://www.youtube.com/embed/Y_vZmpxL_HY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                </div>
+            </div>
+            <div class= 'comment'>
+                <h2>코멘트</h2>
+                <hr>
+                <% for(var list of comment){ %>
+                    <div><%=list.name %> | <%=list.id %> | <%=list.rate %>점 | <%=list.time %></div>
+                    <div><%=list.comment %></div>
+                    <hr size = "1px" noshade>
+                <% } %>
+            </div>
+        </section>
+        <footer class="mainFooter">
+            <p>아무말대잔치 &copy; <a href="http://www.dankook.ac.kr" title="codestrive">단국대학교 웹 프로그래밍 미니 프로젝트 홈 페이지</a></p>
+        </footer>
+    </body>
+</html>

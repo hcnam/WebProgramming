@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>아무책 대잔치</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+        <script src="/script/script_menu.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css"  href="/css/main.css"/>
+        <link rel="stylesheet" type="text/css"  href="/css/nav.css"/>
+    </head>
+
+    <body class="body">
+        <header class="mainHeader">
+            <img id="logo" src="/images/logo.jpg"/>
+            
+        </header>
+        <!-- navigator -->
+        <script src="/script/script_menu.js" type="text/javascript"></script>
+        <div class="topnav" id="myTopnav">
+                <a href='#' class="active">MENU</a>
+                <a href='/'>메인</a>
+                <a href='/rank/1'>아무책대잔치</a>
+                <a href='/rank/2'>교보문고</a>
+                <a href='/rank/3'>알라딘</a>
+                <a href='/rank/4'>영풍문고</a>
+                <a href='/rank/5'>반디앤루니스</a>
+                <a href='/rank/6'>YES24</a>     
+                <a href="javascript:void(0);" class="icon" onclick="navFunc()">
+                    <img src="/images/nav-icon.png">
+                </a>
+        </div>
+        <section class="mainContent">
+        
+                <article class="topContent">
+                    <header>
+                        <h2><a href="#" title="First Post">아무책 베스트셀러</a></h2>
+                    </header>
+                    <content>
+                        <% for(var i of amuRank){ %>
+                            <div class="book_product" style=" float: left; width: 33%;">
+                                <a href="/book/<%=i.ISBN%>">
+                                    <p align="center"><%=i.name%></p><img class='bookcover' src="<%=i.img_link%>">
+                                </a>                      
+                            </div>
+                        <%}%>
+                    </content>
+                </article>
+                <article class="bottomContent" style="float:none">
+                    <header>
+                        <h2><a href="#" title="Second Post">아무책 추천도서</a></h2>
+                    </header>
+                    <content>
+                            <% for(var i of amuOffer){ %>
+                                <div class="book_product" style=" float: left; width: 33%;">
+                                    <a href="/book/<%=i.ISBN%>">
+                                        <p align="center"><%=i.name%></p><img class='bookcover' src="<%=i.img_link%>">
+                                    </a>                      
+                                </div>
+                            <%}%>
+                        </content>
+                </article>
+            
+        
+        </section>
+        
+        <aside class="top-sidebar">
+            <article>
+                <h2>BestSeller</h2>
+                <p><b>교보문고</b></p>
+                <ol>
+                    <%for (var i of rankAll){ %>
+                        <%if(i.no == 2){%>
+                            <li><a href='/book/<%=i.ISBN%>'><%=i.name%></a></li>
+                        <%}%>
+                    <%}%>
+                </ol>
+                <p><b>알라딘</b></p>
+                <ol>
+                    <%for (var i of rankAll){ %>
+                        <%if(i.no == 3){%>
+                            <li><a href='/book/<%=i.ISBN%>'><%=i.name%></a></li>
+                        <%}%>
+                    <%}%>
+                </ol>
+                <p><b>YES24</b></p>
+                <ol>
+                    <%for (var i of rankAll){ %>
+                        <%if(i.no == 4){%>
+                            <li><a href='/book/<%=i.ISBN%>'><%=i.name%></a></li>
+                        <%}%>
+                    <%}%>
+                </ol>
+                <p><b>영풍문고</b></p>
+                <ol>
+                    <%for (var i of rankAll){ %>
+                        <%if(i.no == 5){%>
+                            <li><a href='/book/<%=i.ISBN%>'><%=i.name%></a></li>
+                        <%}%>
+                    <%}%>
+                </ol>
+                <p><b>반디앤루니스</b></p>
+                <ol>
+                    <%for (var i of rankAll){ %>
+                        <%if(i.no == 6){%>
+                            <li><a href='/book/<%=i.ISBN%>'><%=i.name%></a></li>
+                        <%}%>
+                    <%}%>
+                </ol>
+            </article>
+        </aside>
+            
+        
+        <footer class="mainFooter">
+            <p>아무말대잔치 &copy; <a href="http://www.dankook.ac.kr" title="codestrive">단국대학교 웹 프로그래밍 미니 프로젝트 홈 페이지</a></p>        
+        </footer>
+
+    </body>
+</html>
